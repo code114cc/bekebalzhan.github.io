@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Балжан + Бекзат</title>
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top, #ffe6f0, #ffccdd);
+      font-family: 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+      color: #b30059;
+    }
+
+    .container {
+      text-align: center;
+      padding-top: 120px;
+      z-index: 1;
+      position: relative;
+      animation: fadeInContainer 2s ease-in-out;
+    }
+
+    @keyframes fadeInContainer {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .heart {
+      font-size: 100px;
+      color: red;
+      animation: pulse 1.5s infinite;
+      text-shadow: 0 0 10px #ff3366, 0 0 20px #ff99cc;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+    }
+
+    .typing-text {
+      font-size: 48px;
+      display: inline-block;
+      border-right: 2px solid #b30059;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+      animation: typing 4s steps(20, end) forwards, blink 1s infinite;
+      margin-top: 20px;
+    }
+
+    @keyframes typing {
+      to { width: 100%; }
+    }
+
+    @keyframes blink {
+      0%, 100% { border-color: transparent; }
+      50% { border-color: #b30059; }
+    }
+
+    p {
+      font-size: 24px;
+      margin-top: 30px;
+      animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 5px #ff99cc; }
+      to { text-shadow: 0 0 20px #ff33aa; }
+    }
+
+    .falling-hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .heart-fall {
+      position: absolute;
+      color: #ff3399;
+      font-size: 20px;
+      animation: fall linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+
+    audio {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .scroll-top {
+      position: fixed;
+      bottom: 80px;
+      right: 30px;
+      background: #ff66b2;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 12px 18px;
+      font-size: 18px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ff66b2;
+      transition: 0.3s;
+    }
+
+    .scroll-top:hover {
+      background: #cc0066;
+      box-shadow: 0 0 20px #cc0066;
+    }
+    
+    .video-section {
+  margin: 80px auto;
+  text-align: center;
+  animation: fadeIn 2s ease-in-out;
+  color: #cc0066;
+}
+
+.video-section h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  text-shadow: 0 0 10px #ff99cc;
+}
+
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  box-shadow: 0 0 30px rgba(255, 102, 153, 0.5);
+}
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="heart">♥</div>
+    <div class="typing-text">Балжан + Бекзат</div>
+    <p>Навсегда вместе. Сердце к сердцу.</p>
+    <p>Любовь, которую ничто не разрушит.</p>
+  </div>
+
+  <div class="falling-hearts" id="hearts-container"></div>
+  
+  <!-- Центр страницы с видео -->
+<div class="video-section">
+  <h2>Наша История в Видео</h2>
+  <!-- Вставь сюда свой YouTube или mp4 -->
+  <div class="video-wrapper">
+    <iframe 
+      src="https://youtu.be/xNJWaFPSRJs?si=6dQguGFFyqJunDKH" 
+      title="Балжан и Бекзат" 
+      frameborder="0" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
+
+  <audio controls autoplay loop>
+    <source src="https://youtu.be/xNJWaFPSRJs?si=6dQguGFFyqJunDKH" type="audio/mpeg">
+    Ваш браузер не поддерживает аудио.
+  </audio>
+
+  <button class="scroll-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Наверх</button>
+
+  <script>
+    // Генерация сердечек
+    function createHearts() {
+      const container = document.getElementById('hearts-container');
+      for (let i = 0; i < 40; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart-fall";
+        heart.innerText = "♥";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (2 + Math.random() * 3) + "s";
+        heart.style.fontSize = (16 + Math.random() * 20) + "px";
+        container.appendChild(heart);
+      }
+    }
+
+    createHearts();
+  </script>
+
+</body>
+</html>
